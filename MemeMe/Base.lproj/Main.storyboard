@@ -28,7 +28,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem id="eRf-La-LVR">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="i4n-XX-hRp"/>
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="i4n-XX-hRp">
+                                            <connections>
+                                                <action selector="shareMeme:" destination="zJd-x3-lOV" id="af4-z8-MUx"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Cancel" id="gbT-AN-tqU">
                                             <connections>
                                                 <action selector="cancelMemeEdit:" destination="zJd-x3-lOV" id="tDT-eV-5fy"/>
@@ -287,8 +291,10 @@
                     <connections>
                         <outlet property="cameraButton" destination="8X5-kI-ggP" id="hQ9-r2-Vf9"/>
                         <outlet property="memeBottomLabel" destination="PHh-Jy-Omp" id="4l6-ao-fz7"/>
-                        <outlet property="memeImage" destination="WSb-5P-ZGN" id="YwR-Hm-avI"/>
+                        <outlet property="memeImageView" destination="WSb-5P-ZGN" id="ZU7-2k-gIU"/>
                         <outlet property="memeTopLabel" destination="rGY-yH-b69" id="h5i-xh-AHO"/>
+                        <outlet property="shareButton" destination="i4n-XX-hRp" id="FQy-cC-cCO"/>
+                        <outlet property="toolbar" destination="IOw-wX-Yvh" id="yIu-K0-N5U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YAp-co-l7f" userLabel="First Responder" sceneMemberID="firstResponder"/>
