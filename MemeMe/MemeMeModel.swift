@@ -15,22 +15,11 @@ class meme: NSObject {
     var bottomText: String?
     var image: UIImage?
     var memeImage: UIImage?
-    /*
-    convenience init(image: UIImage!, topText: String!, bottomText: String!) {
+    
+    override init() {
         
-        self.init()
-        
-        if topText != nil {
-            self.topText = topText!
-        }
-        
-        if bottomText != nil {
-            self.bottomText = bottomText!
-        }
-        
-        if image != nil {
-            self.image = image
-        }
+        self.topText = ""
+        self.bottomText = ""
+         
     }
-    */
 }

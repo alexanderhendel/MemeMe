@@ -20,6 +20,7 @@ class EditMemeViewController: UIViewController,
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     // MARK: - Delegates
     let MemeTextFieldDelegate = memeTextFieldDelegate()
@@ -120,7 +121,6 @@ class EditMemeViewController: UIViewController,
         
         let userInfo = notification.userInfo
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
-        NSLog("\(keyboardSize)")
         
         return keyboardSize.CGRectValue().height
     }
@@ -133,24 +133,19 @@ class EditMemeViewController: UIViewController,
         myMeme.topText = memeTopLabel.text
         myMeme.bottomText = memeBottomLabel.text
         myMeme.image = memeImageView.image
-            
         myMeme.memeImage = self.generateMemedImage()
-    }
-
-    @IBAction func shareMeme(sender: UIBarButtonItem) {
         
-        // share your fancy meme :)
-        let activityItem = generateMemedImage()
-        let activityViewController = UIActivityViewController(activityItems: [activityItem],
-            applicationActivities: nil)
+        // Add it to the memes array in the Application Delegate
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
         
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+        appDelegate.memes.append(myMeme)
     }
     
     func generateMemedImage() -> UIImage {
         
         // Hide toolbar and navbar
-        self.navigationController?.navigationBar.hidden = true
+        self.navigationBar.hidden = true
         self.toolbar.hidden = true
         
         // Render view to an image
@@ -163,7 +158,7 @@ class EditMemeViewController: UIViewController,
             UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        self.navigationController?.navigationBar.hidden = false
+        self.navigationBar.hidden = false
         self.toolbar.hidden = false
         
         return memedImage
@@ -204,6 +199,31 @@ class EditMemeViewController: UIViewController,
     @IBAction func cancelMemeEdit(sender: UIBarButtonItem) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func shareMeme(sender: UIBarButtonItem) {
+        
+        // share your fancy meme :)
+        let activityItem = generateMemedImage()
+        let avc = UIActivityViewController(activityItems: [activityItem],
+            applicationActivities: nil)
+        
+        self.presentViewController(avc, animated: true, completion: nil)
+        
+        // upon completion of the ActivityView..
+        avc.completionWithItemsHandler = {
+            (s: String!, ok:Bool, items:[AnyObject]!, error:NSError!) -> Void in
+            
+            if ok {
+                // save meme
+                self.save()
+            
+                // dismiss ActivityView
+                avc.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                NSLog("\(error)")
+            }
+        }
     }
 }
 
