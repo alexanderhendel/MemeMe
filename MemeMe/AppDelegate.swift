@@ -6,16 +6,27 @@
 //  Copyright (c) 2015 alexhendel. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var memeStorageFile: String!
     var memes = [meme]()        // shared model
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // get storage file
+        let documentsDir: String!
+        
+        documentsDir = self.applicationDocumentsDirectory()
+        memeStorageFile = documentsDir.stringByAppendingPathComponent("Storage")
+        
+        // load from storage
+        self.loadMemes()
+        
         return true
     }
 
@@ -27,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        self.saveMemes()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -39,8 +52,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        self.saveMemes()
     }
 
-
+    // MARK: custom functions
+    func saveMemes() -> Bool {
+    
+        // save data
+        // unwrap memeStorageFile
+        if memeStorageFile != nil {
+            
+            return NSKeyedArchiver.archiveRootObject(memes, toFile: memeStorageFile)
+        } else {
+            
+            return false
+        }
+    }
+    
+    func loadMemes() {
+    
+        // unwrap memeStorageFile
+        if memeStorageFile != nil {
+            var unarchivedMemes = NSArray()
+            
+            // unwrap NSKeyedUnarchiver
+            if NSKeyedUnarchiver.unarchiveObjectWithFile(memeStorageFile) != nil {
+                
+                unarchivedMemes = NSKeyedUnarchiver.unarchiveObjectWithFile(memeStorageFile) as! NSArray
+            }
+            
+            // Output the new array
+            for m: AnyObject in unarchivedMemes {
+                
+                self.memes.append(m as! meme)
+            }
+        } else {
+            NSLog("couldnt load memes, storage file was nil")
+        }
+    }
+    
+    // Returns the URL to the application's Documents directory.
+    func applicationDocumentsDirectory() -> String {
+        
+        // find user Documents directory
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+        
+        return documentsPath
+    }
 }
 
