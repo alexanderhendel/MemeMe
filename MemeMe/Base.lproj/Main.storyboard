@@ -118,7 +118,7 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="R2J-2f-qA2">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R2J-2f-qA2">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="568" id="P99-jw-HyM"/>
@@ -580,6 +580,7 @@
                         <viewControllerLayoutGuide type="bottom" id="jcQ-zO-NDm"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nEL-6N-Uph">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QvB-fs-Q2m">
@@ -620,10 +621,10 @@
                                 <exclude reference="gyE-ts-JHl"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="io5-Sd-Z4v"/>
                                 <exclude reference="5cd-LK-tUf"/>
                                 <exclude reference="7ox-DE-1GO"/>
                                 <exclude reference="L4W-L0-eAa"/>
-                                <exclude reference="io5-Sd-Z4v"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -632,10 +633,10 @@
                                 <include reference="gyE-ts-JHl"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="io5-Sd-Z4v"/>
                                 <include reference="5cd-LK-tUf"/>
                                 <include reference="7ox-DE-1GO"/>
                                 <include reference="L4W-L0-eAa"/>
-                                <include reference="io5-Sd-Z4v"/>
                             </mask>
                         </variation>
                     </view>
@@ -675,6 +676,6 @@
         <image name="TabBarList" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ijR-3E-0WG"/>
+        <segue reference="lFt-Sy-kuS"/>
     </inferredMetricsTieBreakers>
 </document>

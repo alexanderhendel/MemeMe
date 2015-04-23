@@ -13,15 +13,13 @@ class memeTextFieldDelegate: NSObject, UITextFieldDelegate {
 
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
-        // empty text field when user wants to enter something
-        textField.endEditing(true)
-        
         return true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         // dismiss keyboard when user presses return
+        textField.endEditing(true)
         
         return true
     }

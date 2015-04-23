@@ -80,14 +80,18 @@ class EditMemeViewController: UIViewController,
     // MARK: - Keyboard Notifications
     func keyboardWillShow(notification: NSNotification) {
         
-        //TODO: move keyboard
-        //self.view.frame.origin.y -= getKeyboardHeight(notification)
+        // move keyboard only if bottom text is active
+        if (memeBottomLabel.highlighted) {
+            self.view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         
-        //TODO: move keyboard
-        //self.view.frame.origin.y += getKeyboardHeight(notification)
+        // move keyboard only if bottom text is active
+        if (memeBottomLabel.highlighted) {
+            self.view.frame.origin.y += getKeyboardHeight(notification)
+        }
     }
 
     func subscribeToKeyboardNotifications() {
