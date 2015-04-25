@@ -18,23 +18,23 @@ class TableViewController: UITableViewController,
     // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
         
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        memes = appDelegate.memes
-        
-        // force table view to reload data when it becomes visible
-        tableView.reloadData()
+        self.syncMemesWithSharedDataSource()
         
         // if the memes array holds no data then show editor
         if self.memes.count == 0 {
             
             performSegueWithIdentifier("EditMemeSegue", sender: self)
         }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.syncMemesWithSharedDataSource()
+        
+        // force table view to reload data when it becomes visible
+        tableView.reloadData()
     }
     
     // MARK: - TableView Protocol
@@ -101,5 +101,13 @@ class TableViewController: UITableViewController,
             tableView.setEditing(true, animated: true)
             editButton.enabled = false
         }
+    }
+    
+    // MARK: - User functions
+    func syncMemesWithSharedDataSource() {
+        
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        memes = appDelegate.memes
     }
 }

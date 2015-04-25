@@ -65,9 +65,11 @@ class EditMemeViewController: UIViewController,
         memeBottomLabel.textAlignment = NSTextAlignment.Center
         memeBottomLabel.autocapitalizationType = UITextAutocapitalizationType.AllCharacters
         
-        // disable share Buttom only when imageView is empty
+        // disable share Buttom and text fields only when imageView is empty
         if self.memeImageView.image == nil {
             shareButton.enabled = false
+            memeTopLabel.hidden = true
+            memeBottomLabel.hidden = true
         }
     }
 
@@ -184,6 +186,8 @@ class EditMemeViewController: UIViewController,
             
             memeImageView.image = image
             shareButton.enabled = true
+            memeTopLabel.hidden = false
+            memeBottomLabel.hidden = false
             
             self.dismissViewControllerAnimated(true, completion: nil)
         }
@@ -222,8 +226,9 @@ class EditMemeViewController: UIViewController,
                 // save meme
                 self.save()
             
-                // dismiss ActivityView
+                // dismiss ActivityView and EditMeme view once shared
                 avc.dismissViewControllerAnimated(true, completion: nil)
+                self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 NSLog("\(error)")
             }
